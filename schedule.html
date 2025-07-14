@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule a Meeting | Dr. Brillo Edu Services</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Top Header Bar -->
+    <div class="top-header">
+      <div class="container">
+        <div class="contact-info">
+          <span>
+            <i class="fas fa-envelope"></i>
+            drbrillo.edu@gmail.com
+          </span>
+          <span>
+            <i class="fas fa-phone"></i>
+            +233 598 679 884
+          </span>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="http://wa.me/233598679884"
+            ><i class="fab fa-whatsapp"></i
+          ></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <div class="logo">
+          <div style="width: 50px; height: 50px">
+            <a href="index.html"
+              ><img
+                class="fas fa-heart"
+                style="font-size: 20px"
+                src="logo.png"
+                alt="Heart Icon"
+            /></a>
+          </div>
+        </div>
+        <button class="nav-toggle" aria-label="Open menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#fields" class="dropdown-arrow">Fields</a></li>
+          <li><a href="index.html#about" class="dropdown-arrow">About-us</a></li>
+          <li><a href="services.html" class="dropdown-arrow">Our Services</a></li>
+          <li><a href="faq.html" class="dropdown-arrow">FAQ's</a></li>
+          <li><a href="schedule.html" class="active">Schedule Meeting</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Schedule Hero Section -->
+    <section class="schedule-hero">
+      <div class="schedule-hero-content animated-schedule-hero">
+        <h1>Schedule Your Free Consultation</h1>
+        <p>
+          Complete the form below with your details and documents, then book your personalized session with our experts.
+        </p>
+      </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section class="application-form-section">
+      <div class="container">
+        <div class="form-header">
+          <h2><i class="fas fa-file-alt"></i> Application Form</h2>
+          <p>Please fill out all required fields and upload your documents before scheduling your meeting.</p>
+        </div>
+
+        <form id="applicationForm" class="application-form" enctype="multipart/form-data">
+          <!-- Personal Information -->
+          <div class="form-section">
+            <h3><i class="fas fa-user"></i> Personal Information</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required>
+                <div class="error-message" id="fullNameError"></div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required>
+                <div class="error-message" id="phoneError"></div>
+              </div>
+              <div class="form-group">
+                <label for="studyType">Study Type <span class="required">*</span></label>
+                <select id="studyType" name="studyType" required>
+                  <option value="">Select Study Type</option>
+                  <option value="undergraduate">Undergraduate</option>
+                  <option value="masters">Master's</option>
+                  <option value="doctoral">Doctoral</option>
+                </select>
+                <div class="error-message" id="studyTypeError"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="experience">Professional Experience <span class="required">*</span></label>
+                <select id="experience" name="experience" required>
+                  <option value="">Select Experience Level</option>
+                  <option value="0">No Experience</option>
+                  <option value="1-5">1-5 Years</option>
+                  <option value="5+">Above 5 Years</option>
+                </select>
+                <div class="error-message" id="experienceError"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Document Upload Section -->
+          <div class="form-section">
+            <h3><i class="fas fa-upload"></i> Document Upload</h3>
+            <p class="upload-note">Please upload the following documents (PDF, JPG, PNG formats only, max 5MB each):</p>
+            
+            <div class="upload-grid">
+              <div class="upload-item">
+                <label for="transcripts">Academic Transcripts <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="transcripts" name="transcripts" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <div class="file-upload-display">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose File or Drag & Drop</span>
+                  </div>
+                  <div class="file-name" id="transcriptsName"></div>
+                </div>
+                <div class="error-message" id="transcriptsError"></div>
+              </div>
+
+              <div class="upload-item">
+                <label for="resume">Resume/CV <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                  <div class="file-upload-display">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose File or Drag & Drop</span>
+                  </div>
+                  <div class="file-name" id="resumeName"></div>
+                </div>
+                <div class="error-message" id="resumeError"></div>
+              </div>
+
+              <div class="upload-item">
+                <label for="passport">Passport Copy <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <div class="file-upload-display">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose File or Drag & Drop</span>
+                  </div>
+                  <div class="file-name" id="passportName"></div>
+                </div>
+                <div class="error-message" id="passportError"></div>
+              </div>
+
+              <div class="upload-item">
+                <label for="waec">WAEC Results <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="waec" name="waec" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <div class="file-upload-display">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose File or Drag & Drop</span>
+                  </div>
+                  <div class="file-name" id="waecName"></div>
+                </div>
+                <div class="error-message" id="waecError"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Information -->
+          <div class="form-section">
+            <h3><i class="fas fa-comment"></i> Additional Information</h3>
+            <div class="form-group">
+              <label for="message">Tell us about your goals and any specific questions (Optional)</label>
+              <textarea id="message" name="message" rows="4" placeholder="Share your academic goals, preferred countries, or any specific questions you have..."></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-submit">
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <i class="fas fa-paper-plane"></i>
+              <span>Submit Application</span>
+              <div class="loading-spinner" id="loadingSpinner"></div>
+            </button>
+            <p class="submit-note">After submitting, you'll be able to schedule your consultation meeting below.</p>
+          </div>
+        </form>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          <div class="success-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>Application Submitted Successfully!</h3>
+            <p>Thank you for your application. We've received your documents and will review them shortly. You can now schedule your consultation meeting below.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendly Section -->
+    <section class="calendly-section" id="calendlySection">
+      <div class="calendly-bubbles">
+        <span class="bubble bubble1"></span>
+        <span class="bubble bubble2"></span>
+        <span class="bubble bubble3"></span>
+        <span class="bubble bubble4"></span>
+        <span class="bubble bubble5"></span>
+      </div>
+      <div class="container">
+        <div class="calendly-header">
+          <h2><i class="fas fa-calendar-check"></i> Schedule Your Consultation</h2>
+          <p>Select a convenient time for your personalized consultation with our education experts.</p>
+        </div>
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/drbrillo-edu/30min"
+          style="min-width: 320px; height: 700px"
+        ></div>
+        <script
+          type="text/javascript"
+          src="https://assets.calendly.com/assets/external/widget.js"
+          async
+        ></script>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h4>Menu</h4>
+            <ul>
+              <li><a href="#">Countries</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Fields</h4>
+            <ul>
+              <li><a href="#">● Medicine</a></li>
+              <li><a href="#">● Computer Science & IT</a></li>
+              <li><a href="#">● Mathematics & Physics</a></li>
+              <li><a href="#">● Biomedical & Chemical Engineering</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">Team</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-text">
+            <p>Company Number: 233598679884.</p>
+            <p>
+              Dr. Brillo Education Services™ has been a leading provider of
+              medical education and training services in Ghana since 2018.
+            </p>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/dr.brilloeduservice/?next=%2F"
+              class="social-link"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://x.com/DRBrillo" class="social-link"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="social-link"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Hamburger menu toggle
+    const navToggle = document.querySelector(".nav-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+    if (navToggle && navMenu) {
+        navToggle.addEventListener("click", function () {
+            navMenu.classList.toggle("open");
+            navToggle.classList.toggle("open");
+        });
+    }
+
+    // Animate Schedule hero
+    const scheduleHero = document.querySelector(".schedule-hero-content");
+    function animateScheduleHero() {
+        if (!scheduleHero) return;
+        const rect = scheduleHero.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            scheduleHero.classList.add("visible");
+        }
+    }
+    animateScheduleHero();
+    window.addEventListener("scroll", animateScheduleHero);
+
+    // Enhanced file upload with drag and drop
+    function setupFileUpload() {
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        
+        fileInputs.forEach(input => {
+            const wrapper = input.closest('.file-upload-wrapper');
+            const display = wrapper.querySelector('.file-upload-display');
+            const nameDisplay = wrapper.querySelector('.file-name');
+            
+            // File selection
+            input.addEventListener('change', function() {
+                handleFileSelection(this, display, nameDisplay);
+            });
+            
+            // Drag and drop
+            display.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                wrapper.classList.add('dragover');
+            });
+            
+            display.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                wrapper.classList.remove('dragover');
+            });
+            
+            display.addEventListener('drop', function(e) {
+                e.preventDefault();
+                wrapper.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    input.files = files;
+                    handleFileSelection(input, display, nameDisplay);
+                }
+            });
+            
+            // Click to select file
+            display.addEventListener('click', function() {
+                input.click();
+            });
+        });
+    }
+
+    function handleFileSelection(input, display, nameDisplay) {
+        const file = input.files[0];
+        
+        if (file) {
+            // Validate file size (5MB limit)
+            const maxSize = 5 * 1024 * 1024;
+            if (file.size > maxSize) {
+                showError(input, 'File size must be less than 5MB');
+                input.value = '';
+                return;
+            }
+            
+            // Validate file type
+            const allowedTypes = {
+                'transcripts': ['pdf', 'jpg', 'jpeg', 'png'],
+                'resume': ['pdf', 'doc', 'docx'],
+                'passport': ['pdf', 'jpg', 'jpeg', 'png'],
+                'waec': ['pdf', 'jpg', 'jpeg', 'png']
+            };
+            
+            const fieldName = input.name;
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            
+            if (allowedTypes[fieldName] && !allowedTypes[fieldName].includes(fileExtension)) {
+                showError(input, `Invalid file type. Allowed types: ${allowedTypes[fieldName].join(', ')}`);
+                input.value = '';
+                return;
+            }
+            
+            // Update display
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            nameDisplay.innerHTML = `
+                <i class="fas fa-file-check" style="color: #4a90e2;"></i>
+                ${file.name} (${fileSize} MB)
+            `;
+            display.classList.add('file-selected');
+            input.parentElement.classList.add('has-file');
+            clearError(input);
+            
+        } else {
+            nameDisplay.innerHTML = '';
+            display.classList.remove('file-selected');
+            input.parentElement.classList.remove('has-file');
+        }
+    }
+
+    // Enhanced form validation with real-time feedback
+    function setupRealTimeValidation() {
+        const inputs = document.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                clearError(this);
+                if (this.value.trim()) {
+                    validateField(this);
+                }
+            });
+        });
+    }
+
+    function validateField(field) {
+        const errorDiv = document.getElementById(field.id + 'Error');
+        let isValid = true;
+        let errorMessage = '';
+        
+        // Required field validation
+        if (field.hasAttribute('required') && !field.value.trim()) {
+            isValid = false;
+            errorMessage = 'This field is required';
+        }
+        
+        // Email validation
+        if (field.type === 'email' && field.value) {
+            if (!isValidEmail(field.value)) {
+                isValid = false;
+                errorMessage = 'Please enter a valid email address';
+            }
+        }
+        
+        // Phone validation
+        if (field.type === 'tel' && field.value) {
+            if (!isValidPhone(field.value)) {
+                isValid = false;
+                errorMessage = 'Please enter a valid phone number';
+            }
+        }
+        
+        // Update field appearance
+        if (isValid && field.value.trim()) {
+            field.classList.remove('error');
+            field.classList.add('success');
+            if (errorDiv) errorDiv.textContent = '';
+        } else if (!isValid) {
+            field.classList.remove('success');
+            field.classList.add('error');
+            if (errorDiv) errorDiv.textContent = errorMessage;
+        }
+        
+        return isValid;
+    }
+
+    function clearError(field) {
+        const errorDiv = document.getElementById(field.id + 'Error');
+        field.classList.remove('error');
+        if (field.value.trim()) {
+            field.classList.add('success');
+        } else {
+            field.classList.remove('success');
+        }
+        if (errorDiv) errorDiv.textContent = '';
+    }
+
+    function showError(field, message) {
+        const errorDiv = document.getElementById(field.id + 'Error');
+        field.classList.add('error');
+        field.classList.remove('success');
+        if (errorDiv) errorDiv.textContent = message;
+    }
+
+    // Comprehensive form validation
+    function validateForm() {
+        let isValid = true;
+        const requiredFields = ['fullName', 'email', 'phone', 'studyType', 'experience'];
+        const requiredFiles = ['transcripts', 'resume', 'passport', 'waec'];
+        
+        // Clear previous errors
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        
+        // Validate text fields
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+            
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            
+            if (!field.value.trim()) {
+                field.classList.add('error');
+                if (errorDiv) errorDiv.textContent = 'This field is required';
+                isValid = false;
+            }
+        });
+        
+        // Validate email format
+        const emailField = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        if (emailField && emailField.value && !isValidEmail(emailField.value)) {
+            emailField.classList.add('error');
+            if (emailError) emailError.textContent = 'Please enter a valid email address';
+            isValid = false;
+        }
+        
+        // Validate phone format
+        const phoneField = document.getElementById('phone');
+        const phoneError = document.getElementById('phoneError');
+        if (phoneField && phoneField.value && !isValidPhone(phoneField.value)) {
+            phoneField.classList.add('error');
+            if (phoneError) phoneError.textContent = 'Please enter a valid phone number';
+            isValid = false;
+        }
+        
+        // Validate file uploads
+        requiredFiles.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+            
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            
+            if (!field.files || field.files.length === 0) {
+                field.classList.add('error');
+                if (errorDiv) errorDiv.textContent = 'This file is required';
+                isValid = false;
+            }
+        });
+        
+        // Scroll to first error if validation fails
+        if (!isValid) {
+            const firstError = document.querySelector('.error');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        return isValid;
+    }
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function isValidPhone(phone) {
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        return phoneRegex.test(phone);
+    }
+
+    // Show loading state
+    function showLoading(show = true) {
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const btnText = submitBtn.querySelector('span');
+        
+        if (show) {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            loadingSpinner.style.display = 'block';
+            btnText.textContent = 'Submitting...';
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+            loadingSpinner.style.display = 'none';
+            btnText.textContent = 'Submit Application';
+        }
+    }
+
+    // Show success message
+    function showSuccess() {
+        const form = document.getElementById('applicationForm');
+        const successMessage = document.getElementById('successMessage');
+        const calendlySection = document.getElementById('calendlySection');
+        
+        // Hide form and show success message
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+        
+        // Enable Calendly section
+        calendlySection.style.opacity = '1';
+        calendlySection.style.pointerEvents = 'auto';
+        
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+        
+        // Then scroll to Calendly after a delay
+        setTimeout(() => {
+            calendlySection.scrollIntoView({ behavior: 'smooth' });
+        }, 2000);
+    }
+
+    // Show error message
+    function showErrorMessage(message) {
+        // Create or update error alert
+        let errorAlert = document.getElementById('errorAlert');
+        if (!errorAlert) {
+            errorAlert = document.createElement('div');
+            errorAlert.id = 'errorAlert';
+            errorAlert.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #f44336;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                z-index: 1000;
+                max-width: 400px;
+                font-family: Arial, sans-serif;
+            `;
+            document.body.appendChild(errorAlert);
+        }
+        
+        errorAlert.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    margin-left: auto;
+                ">×</button>
+            </div>
+        `;
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (errorAlert && errorAlert.parentNode) {
+                errorAlert.remove();
+            }
+        }, 5000);
+    }
+
+    // Form submission handler
+    document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        if (!validateForm()) {
+            showErrorMessage('Please fill in all required fields correctly.');
+            return;
+        }
+
+        showLoading(true);
+
+        try {
+            const formData = new FormData(this);
+            
+            // Send to PHP endpoint
+            const response = await fetch('send-application.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Check if response is ok
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status} ${response.statusText}`);
+            }
+
+            // Parse JSON response
+            const result = await response.json();
+
+            if (result.success) {
+                showSuccess();
+                
+                // Show success notification
+                let successAlert = document.createElement('div');
+                successAlert.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #4CAF50;
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    z-index: 1000;
+                    max-width: 400px;
+                    font-family: Arial, sans-serif;
+                `;
+                successAlert.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Application submitted successfully!</span>
+                    </div>
+                `;
+                document.body.appendChild(successAlert);
+                
+                setTimeout(() => successAlert.remove(), 5000);
+                
+            } else {
+                throw new Error(result.error || result.message || 'Unknown error occurred');
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            
+            let errorMessage = 'There was an error submitting your application. ';
+            
+            if (error.message.includes('Failed to fetch')) {
+                errorMessage += 'Please check your internet connection and try again.';
+            } else if (error.message.includes('Server error')) {
+                errorMessage += 'Server is temporarily unavailable. Please try again later.';
+            } else {
+                errorMessage += error.message || 'Please try again or contact us directly.';
+            }
+            
+            showErrorMessage(errorMessage);
+        } finally {
+            showLoading(false);
+        }
+    });
+
+    // Initialize all functionality
+    setupFileUpload();
+    setupRealTimeValidation();
+
+    // Initially disable Calendly section
+    const calendlySection = document.getElementById('calendlySection');
+    if (calendlySection) {
+        calendlySection.style.opacity = '0.5';
+        calendlySection.style.pointerEvents = 'none';
+        calendlySection.style.transition = 'opacity 0.3s ease';
+    }
+
+    // Add some CSS for better UX
+    const style = document.createElement('style');
+    style.textContent = `
+        .file-upload-wrapper.dragover {
+            border-color: #4a90e2 !important;
+            background-color: #f0f8ff !important;
+        }
+        
+        .file-upload-display {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload-display:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .file-upload-wrapper.has-file .file-upload-display {
+            border-color: #28a745;
+            background-color: #f8fff9;
+        }
+        
+        .form-group input.success,
+        .form-group select.success {
+            border-color: #28a745;
+        }
+        
+        .form-group input.error,
+        .form-group select.error {
+            border-color: #dc3545;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .submit-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .success-content i {
+            font-size: 3rem;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .success-content h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .file-name {
+            margin-top: 8px;
+            font-size: 0.875rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .calendly-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calendly-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .calendly-section[style*="opacity: 0.5"]::before {
+            opacity: 1;
+        }
+        
+        .calendly-section::after {
+            content: 'Complete the application form above to unlock scheduling';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #4a90e2;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .calendly-section[style*="opacity: 0.5"]::after {
+            opacity: 1;
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .upload-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                margin-bottom: 20px;
+            }
+            
+            #errorAlert,
+            .success-alert {
+                left: 10px;
+                right: 10px;
+                max-width: none;
+            }
+        }
+        
+        /* Animation for form sections */
+        .form-section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .form-section:nth-child(1) { animation-delay: 0.1s; }
+        .form-section:nth-child(2) { animation-delay: 0.2s; }
+        .form-section:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Progress indicator */
+        .form-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #4a90e2;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Add form progress indicator
+    const progressBar = document.createElement('div');
+    progressBar.className = 'form-progress';
+    progressBar.style.width = '0%';
+    document.body.appendChild(progressBar);
+
+    // Update progress based on form completion
+    function updateProgress() {
+        const requiredFields = ['fullName', 'email', 'phone', 'studyType', 'experience'];
+        const requiredFiles = ['transcripts', 'resume', 'passport', 'waec'];
+        const totalFields = requiredFields.length + requiredFiles.length;
+        let completedFields = 0;
+
+        // Check text fields
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field && field.value.trim()) {
+                completedFields++;
+            }
+        });
+
+        // Check file fields
+        requiredFiles.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field && field.files && field.files.length > 0) {
+                completedFields++;
+            }
+        });
+
+        const progress = (completedFields / totalFields) * 100;
+        progressBar.style.width = progress + '%';
+    }
+
+    // Add progress tracking to all form fields
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('input', updateProgress);
+        field.addEventListener('change', updateProgress);
+    });
+
+    // Initial progress update
+    updateProgress();
+
+    // Add smooth scrolling for better UX
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add keyboard navigation support
+    document.addEventListener('keydown', function(e) {
+        // Submit form with Ctrl+Enter
+        if (e.ctrlKey && e.key === 'Enter') {
+            const form = document.getElementById('applicationForm');
+            if (form && form.style.display !== 'none') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        }
+        
+        // Escape key to close alerts
+        if (e.key === 'Escape') {
+            const alerts = document.querySelectorAll('#errorAlert');
+            alerts.forEach(alert => alert.remove());
+        }
+    });
+
+    // Add auto-save functionality (optional)
+    let autoSaveTimeout;
+    function autoSave() {
+        clearTimeout(autoSaveTimeout);
+        autoSaveTimeout = setTimeout(() => {
+            const formData = new FormData(document.getElementById('applicationForm'));
+            const data = {};
+            
+            // Save text fields to localStorage
+            for (let [key, value] of formData.entries()) {
+                if (typeof value === 'string') {
+                    data[key] = value;
+                }
+            }
+            
+            localStorage.setItem('drbrillo_application_draft', JSON.stringify(data));
+        }, 2000);
+    }
+
+    // Restore saved data on page load
+    function restoreSavedData() {
+        const savedData = localStorage.getItem('drbrillo_application_draft');
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const field = document.getElementById(key);
+                    if (field && field.type !== 'file') {
+                        field.value = data[key];
+                        validateField(field);
+                    }
+                });
+                updateProgress();
+            } catch (e) {
+                console.log('Could not restore saved data');
+            }
+        }
+    }
+
+    // Add auto-save listeners
+    document.querySelectorAll('input:not([type="file"]), select, textarea').forEach(field => {
+        field.addEventListener('input', autoSave);
+    });
+
+    // Restore saved data
+    restoreSavedData();
+
+    // Clear saved data on successful submission
+    document.getElementById('applicationForm').addEventListener('submit', function() {
+        localStorage.removeItem('drbrillo_application_draft');
+    });
+
+    // Add tooltips for better UX
+    const tooltips = {
+        'fullName': 'Enter your full name as it appears on your passport',
+        'email': 'We\'ll use this email to send you updates about your application',
+        'phone': 'Include country code (e.g., +233 for Ghana)',
+        'studyType': 'Select the level of study you\'re interested in',
+        'experience': 'Your professional work experience level',
+        'transcripts': 'Upload your academic transcripts (PDF, JPG, PNG)',
+        'resume': 'Upload your current resume or CV (PDF, DOC, DOCX)',
+        'passport': 'Upload a clear copy of your passport (PDF, JPG, PNG)',
+        'waec': 'Upload your WAEC results (PDF, JPG, PNG)'
+    };
+
+    Object.keys(tooltips).forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.setAttribute('title', tooltips[fieldId]);
+        }
+    });
+
+    console.log('Dr. Brillo Application Form initialized successfully!');
+});
+</script>
+
+  </body>
+</html>
+
