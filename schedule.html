@@ -134,12 +134,15 @@
           <div class="form-section">
             <h3><i class="fas fa-upload"></i> Document Upload</h3>
             <p class="upload-note">Please upload the following documents (PDF, JPG, PNG formats only, max 5MB each):</p>
+            <p class="upload-note" style="color: #e67e22; font-weight: bold;">
+              <i class="fas fa-info-circle"></i> Note: Documents will be collected during your consultation meeting. Please have them ready.
+            </p>
             
             <div class="upload-grid">
               <div class="upload-item">
-                <label for="transcripts">Academic Transcripts <span class="required">*</span></label>
+                <label for="transcripts">Academic Transcripts <span class="optional">(Optional for now)</span></label>
                 <div class="file-upload-wrapper">
-                  <input type="file" id="transcripts" name="transcripts" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <input type="file" id="transcripts" name="transcripts" accept=".pdf,.jpg,.jpeg,.png">
                   <div class="file-upload-display">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <span>Choose File or Drag & Drop</span>
@@ -150,9 +153,9 @@
               </div>
 
               <div class="upload-item">
-                <label for="resume">Resume/CV <span class="required">*</span></label>
+                <label for="resume">Resume/CV <span class="optional">(Optional for now)</span></label>
                 <div class="file-upload-wrapper">
-                  <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                  <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
                   <div class="file-upload-display">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <span>Choose File or Drag & Drop</span>
@@ -163,9 +166,9 @@
               </div>
 
               <div class="upload-item">
-                <label for="passport">Passport Copy <span class="required">*</span></label>
+                <label for="passport">Passport Copy <span class="optional">(Optional for now)</span></label>
                 <div class="file-upload-wrapper">
-                  <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png">
                   <div class="file-upload-display">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <span>Choose File or Drag & Drop</span>
@@ -176,9 +179,9 @@
               </div>
 
               <div class="upload-item">
-                <label for="waec">WAEC Results <span class="required">*</span></label>
+                <label for="waec">WAEC Results <span class="optional">(Optional for now)</span></label>
                 <div class="file-upload-wrapper">
-                  <input type="file" id="waec" name="waec" accept=".pdf,.jpg,.jpeg,.png" required>
+                  <input type="file" id="waec" name="waec" accept=".pdf,.jpg,.jpeg,.png">
                   <div class="file-upload-display">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <span>Choose File or Drag & Drop</span>
@@ -215,7 +218,7 @@
           <div class="success-content">
             <i class="fas fa-check-circle"></i>
             <h3>Application Submitted Successfully!</h3>
-            <p>Thank you for your application. We've received your documents and will review them shortly. You can now schedule your consultation meeting below.</p>
+            <p>Thank you for your application. We've received your information and will review it shortly. You can now schedule your consultation meeting below.</p>
           </div>
         </div>
       </div>
@@ -309,8 +312,14 @@
 
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <script>
 document.addEventListener("DOMContentLoaded", function () {
+    // Initialize EmailJS - REPLACE WITH YOUR ACTUAL PUBLIC KEY
+    emailjs.init("JReFPC90NUN1Fcj_Q"); // You'll get this from EmailJS dashboard
+
     // Hamburger menu toggle
     const navToggle = document.querySelector(".nav-toggle");
     const navMenu = document.querySelector(".nav-menu");
@@ -445,7 +454,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = true;
         let errorMessage = '';
         
-        // Required field validation
+        // Required field validation (only for required fields)
         if (field.hasAttribute('required') && !field.value.trim()) {
             isValid = false;
             errorMessage = 'This field is required';
@@ -499,17 +508,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (errorDiv) errorDiv.textContent = message;
     }
 
-    // Comprehensive form validation
+    // Simplified form validation (only required fields)
     function validateForm() {
         let isValid = true;
         const requiredFields = ['fullName', 'email', 'phone', 'studyType', 'experience'];
-        const requiredFiles = ['transcripts', 'resume', 'passport', 'waec'];
         
         // Clear previous errors
         document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
         document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
         
-        // Validate text fields
+        // Validate required text fields only
         requiredFields.forEach(fieldId => {
             const field = document.getElementById(fieldId);
             if (!field) return;
@@ -540,20 +548,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (phoneError) phoneError.textContent = 'Please enter a valid phone number';
             isValid = false;
         }
-        
-        // Validate file uploads
-        requiredFiles.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            if (!field) return;
-            
-            const errorDiv = document.getElementById(fieldId + 'Error');
-            
-            if (!field.files || field.files.length === 0) {
-                field.classList.add('error');
-                if (errorDiv) errorDiv.textContent = 'This file is required';
-                isValid = false;
-            }
-        });
         
         // Scroll to first error if validation fails
         if (!isValid) {
@@ -664,7 +658,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 5000);
     }
 
-    // Form submission handler
+    // Function to collect file information for email
+    function getFileInfo() {
+        const fileFields = ['transcripts', 'resume', 'passport', 'waec'];
+        const fileInfo = [];
+        
+        fileFields.forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            if (field && field.files && field.files.length > 0) {
+                const file = field.files[0];
+                fileInfo.push(`${fieldName}: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+            } else {
+                fileInfo.push(`${fieldName}: Not uploaded`);
+            }
+        });
+        
+        return fileInfo.join('\n');
+    }
+
+    // EmailJS Form submission handler
     document.getElementById('applicationForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -677,23 +689,29 @@ document.addEventListener("DOMContentLoaded", function () {
         showLoading(true);
 
         try {
+            // Prepare template parameters for EmailJS
             const formData = new FormData(this);
-            
-            // Send to PHP endpoint
-            const response = await fetch('send-application.php', {
-                method: 'POST',
-                body: formData
-            });
+            const templateParams = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                studyType: formData.get('studyType'),
+                experience: formData.get('experience'),
+                message: formData.get('message') || 'No additional message provided',
+                submissionDate: new Date().toLocaleString(),
+                fileInfo: getFileInfo(),
+                replyTo: formData.get('email')
+            };
 
-            // Check if response is ok
-            if (!response.ok) {
-                throw new Error(`Server error: ${response.status} ${response.statusText}`);
-            }
+            // Send email using EmailJS
+            // REPLACE 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual IDs from EmailJS
+            const response = await emailjs.send(
+                'service_kj1o5j4',     // Replace with your EmailJS service ID
+                'template_5nuym93',    // Replace with your EmailJS template ID
+                templateParams
+            );
 
-            // Parse JSON response
-            const result = await response.json();
-
-            if (result.success) {
+            if (response.status === 200) {
                 showSuccess();
                 
                 // Show success notification
@@ -722,19 +740,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(() => successAlert.remove(), 5000);
                 
             } else {
-                throw new Error(result.error || result.message || 'Unknown error occurred');
+                throw new Error('Failed to send email');
             }
         } catch (error) {
             console.error('Submission error:', error);
             
             let errorMessage = 'There was an error submitting your application. ';
             
-            if (error.message.includes('Failed to fetch')) {
-                errorMessage += 'Please check your internet connection and try again.';
-            } else if (error.message.includes('Server error')) {
-                errorMessage += 'Server is temporarily unavailable. Please try again later.';
+            if (error.text) {
+                errorMessage += 'EmailJS Error: ' + error.text;
+            } else if (error.message) {
+                errorMessage += error.message;
             } else {
-                errorMessage += error.message || 'Please try again or contact us directly.';
+                errorMessage += 'Please try again or contact us directly at drbrillo.edu@gmail.com';
             }
             
             showErrorMessage(errorMessage);
@@ -889,6 +907,20 @@ document.addEventListener("DOMContentLoaded", function () {
             opacity: 1;
         }
         
+        .optional {
+            color: #28a745;
+            font-weight: normal;
+            font-size: 0.875rem;
+        }
+        
+        .upload-note {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-left: 4px solid #4a90e2;
+            border-radius: 4px;
+        }
+        
         /* Responsive improvements */
         @media (max-width: 768px) {
             .upload-grid {
@@ -951,22 +983,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update progress based on form completion
     function updateProgress() {
         const requiredFields = ['fullName', 'email', 'phone', 'studyType', 'experience'];
-        const requiredFiles = ['transcripts', 'resume', 'passport', 'waec'];
-        const totalFields = requiredFields.length + requiredFiles.length;
+        const totalFields = requiredFields.length;
         let completedFields = 0;
 
-        // Check text fields
+        // Check only required text fields
         requiredFields.forEach(fieldId => {
             const field = document.getElementById(fieldId);
             if (field && field.value.trim()) {
-                completedFields++;
-            }
-        });
-
-        // Check file fields
-        requiredFiles.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            if (field && field.files && field.files.length > 0) {
                 completedFields++;
             }
         });
@@ -1074,10 +1097,10 @@ document.addEventListener("DOMContentLoaded", function () {
         'phone': 'Include country code (e.g., +233 for Ghana)',
         'studyType': 'Select the level of study you\'re interested in',
         'experience': 'Your professional work experience level',
-        'transcripts': 'Upload your academic transcripts (PDF, JPG, PNG)',
-        'resume': 'Upload your current resume or CV (PDF, DOC, DOCX)',
-        'passport': 'Upload a clear copy of your passport (PDF, JPG, PNG)',
-        'waec': 'Upload your WAEC results (PDF, JPG, PNG)'
+        'transcripts': 'Upload your academic transcripts (Optional - can be provided during consultation)',
+        'resume': 'Upload your current resume or CV (Optional - can be provided during consultation)',
+        'passport': 'Upload a clear copy of your passport (Optional - can be provided during consultation)',
+        'waec': 'Upload your WAEC results (Optional - can be provided during consultation)'
     };
 
     Object.keys(tooltips).forEach(fieldId => {
@@ -1087,10 +1110,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    console.log('Dr. Brillo Application Form initialized successfully!');
+    console.log('Dr. Brillo Application Form with EmailJS initialized successfully!');
+    console.log('Remember to replace YOUR_PUBLIC_KEY, YOUR_SERVICE_ID, and YOUR_TEMPLATE_ID with actual values from EmailJS');
 });
 </script>
 
   </body>
 </html>
+
 
