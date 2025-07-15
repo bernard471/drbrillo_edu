@@ -11,17 +11,24 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Handle preflight requests
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
+// Vercel serverless function handler
+function handler($request) {
+    // Set proper headers
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
-    exit;
-}
+    // Handle preflight requests
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        http_response_code(200);
+        return json_encode(['success' => true]);
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        return json_encode(['success' => false, 'error' => 'Method not allowed']);
+    }
 
 // Get form data with proper sanitization
 $fullName = trim($_POST['fullName'] ?? '');
@@ -58,17 +65,17 @@ if (!empty($errors)) {
     exit;
 }
 
-try {
-    $mail = new PHPMailer(true);
-
-    // Server settings - UPDATE THESE WITH YOUR CREDENTIALS
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'drbrillo.edu@gmail.com'; // Your Gmail address
-    $mail->Password   = 'vjqi emad cimj jjqb'; // Replace with your app password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
+    try {
+        $mail = new PHPMailer(true);
+        
+        // Use environment variables for sensitive data
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $_ENV['SMTP_USERNAME'] ?? 'drbrillo.edu@gmail.com';
+        $mail->Password = $_ENV['SMTP_PASSWORD'] ?? 'vjqi emad cimj jjqb';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
     // Recipients
     $mail->setFrom('drbrillo.edu@gmail.com', 'Dr. Brillo Edu Services');
@@ -187,22 +194,25 @@ try {
         }
     }
 
-    // Send the email
-    if ($mail->send()) {
-        echo json_encode([
-            'success' => true, 
-            'message' => 'Application submitted successfully! We will review your documents and contact you soon.'
+        if ($mail->send()) {
+            return json_encode([
+                'success' => true, 
+                'message' => 'Application submitted successfully!'
+            ]);
+        } else {
+            throw new Exception('Failed to send email');
+        }
+        
+    } catch (Exception $e) {
+        error_log("Email error: " . $e->getMessage());
+        http_response_code(500);
+        return json_encode([
+            'success' => false, 
+            'error' => 'Failed to send application. Please try again.'
         ]);
-    } else {
-        throw new Exception('Failed to send email');
     }
-
-} catch (Exception $e) {
-    error_log("Email error: " . $e->getMessage());
-    http_response_code(500);
-    echo json_encode([
-        'success' => false, 
-        'error' => 'Failed to send application. Please try again or contact us directly.'
-    ]);
 }
+
+// Call the handler
+echo handler($_REQUEST);
 ?>
